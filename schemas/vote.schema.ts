@@ -25,6 +25,6 @@ const VoteSchema = new Schema(
 
 VoteSchema.index({ user: 1, link: 1 }, { unique: true });
 
-const VoteModel = mongoose.model('Vote', VoteSchema);
+const VoteModel = mongoose.models.Vote || mongoose.model('Vote', VoteSchema);
 
 export { VoteModel };

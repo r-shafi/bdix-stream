@@ -40,6 +40,6 @@ const LinkSchema = new Schema(
   }
 );
 
-const LinkModel = mongoose.model('Link', LinkSchema);
+const LinkModel = mongoose.models.Link || mongoose.model('Link', LinkSchema);
 
 export { LinkModel };

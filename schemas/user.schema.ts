@@ -10,7 +10,7 @@ const UserSchema = new Schema(
     },
     email: {
       type: String,
-      required: true,
+      required: false,
       unique: true,
       maxlength: 64,
     },
@@ -30,6 +30,6 @@ const UserSchema = new Schema(
   }
 );
 
-const UserModel = mongoose.model('User', UserSchema);
+const UserModel = mongoose.models.User || mongoose.model('User', UserSchema);
 
 export { UserModel };
