@@ -1,6 +1,6 @@
 import FormButton from '@/app/components/FormButton';
 import Input from '@/app/components/Input';
-import { login } from '@/utilities/actions';
+import { getSession, login } from '@/utilities/actions';
 import { redirect } from 'next/navigation';
 
 const FIELDS = [
@@ -24,7 +24,10 @@ const Page = async () => {
         action={async (formData) => {
           'use server';
           await login(formData);
-          redirect('/new');
+          const session = await getSession();
+          if (session) {
+            redirect('/new');
+          }
         }}
       >
         {FIELDS.map(({ label, type, autoComplete }, i) => (
