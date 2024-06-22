@@ -1,4 +1,4 @@
-import Button from '@/app/components/Button';
+import FormButton from '@/app/components/FormButton';
 import Input from '@/app/components/Input';
 import { login } from '@/utilities/actions';
 import { redirect } from 'next/navigation';
@@ -33,10 +33,11 @@ const Page = async () => {
             label={label}
             type={type}
             autoComplete={autoComplete}
+            required={true}
           ></Input>
         ))}
 
-        <Button title="Login / Register" type="submit"></Button>
+        <FormButton title="Login / Register" type="submit"></FormButton>
       </form>
     </div>
   );

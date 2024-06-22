@@ -1,4 +1,4 @@
-import Button from '@/app/components/Button';
+import FormButton from '@/app/components/FormButton';
 import Input from '@/app/components/Input';
 import { addNewStream, getSession } from '@/utilities/actions';
 import { redirect } from 'next/navigation';
@@ -52,7 +52,7 @@ const Page = async () => {
           </select>
         </label>
 
-        <Button title="Add New Link" type="submit"></Button>
+        <FormButton title="Add New Link" type="submit"></FormButton>
       </form>
     </div>
   );
