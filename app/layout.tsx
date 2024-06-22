@@ -1,3 +1,4 @@
+import { databaseConnect } from '@/utilities/database';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Header from './components/Header';
@@ -9,6 +10,8 @@ export const metadata: Metadata = {
   title: 'm3u8',
   description: 'm3u8',
 };
+
+databaseConnect();
 
 export default function RootLayout({
   children,
