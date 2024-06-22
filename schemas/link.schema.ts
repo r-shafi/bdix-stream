@@ -29,6 +29,11 @@ const LinkSchema = new Schema(
       type: Number,
       default: 0,
     },
+    type: {
+      type: String,
+      enum: ['sports', 'entertainment'],
+      default: 'sports',
+    },
   },
   {
     timestamps: true,
