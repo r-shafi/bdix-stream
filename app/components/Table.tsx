@@ -1,9 +1,30 @@
+import { StreamLink } from '@/types/interface';
+
 interface TableProps {
-  columns: string[];
-  rows: any[][];
+  data: StreamLink[];
 }
 
-const Table = ({ columns, rows }: TableProps) => {
+const Table = ({ data }: TableProps) => {
+  const columns = [
+    'Title',
+    'Description',
+    'URL',
+    'Type',
+    'Votes',
+    'User',
+    'Created At',
+  ];
+
+  const rows: any[][] = data.map((stream) => [
+    stream.title,
+    stream.description,
+    stream.url,
+    stream.type,
+    `${stream.upvotes}/${stream.downvotes}`,
+    stream.user.username,
+    stream.createdAt,
+  ]);
+
   return (
     <div className="relative overflow-x-auto">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
