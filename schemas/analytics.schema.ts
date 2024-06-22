@@ -7,7 +7,15 @@ const AnalyticsSchema = new Schema({
   },
 });
 
+AnalyticsSchema.statics.getInstance = async function () {
+  let analytics = await this.findOne();
+  if (!analytics) {
+    analytics = await this.create({});
+  }
+  return analytics;
+};
+
 const AnalyticsModel =
-  mongoose.models.User || mongoose.model('Analytic', AnalyticsSchema);
+  mongoose.models.Analytic || mongoose.model('Analytic', AnalyticsSchema);
 
 export { AnalyticsModel };
