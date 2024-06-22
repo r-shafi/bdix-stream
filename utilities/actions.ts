@@ -6,6 +6,7 @@ import { UserModel } from '@/schemas/user.schema';
 import { VoteModel } from '@/schemas/vote.schema';
 import bcrypt from 'bcrypt';
 import { SignJWT, jwtVerify } from 'jose';
+import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 
 const key = new TextEncoder().encode(process.env.SECRET as string);
@@ -27,38 +28,45 @@ export async function decrypt(input: string): Promise<any> {
 }
 
 export async function login(formData: FormData) {
-  const user = {
-    username: formData.get('Username') as string,
-    password: formData.get('Password') as string,
-  };
+  const username = (formData.get('Username') as string).toLowerCase();
+  const password = formData.get('Password') as string;
 
-  let id;
+  console.log({
+    username,
+    password,
+  });
 
   try {
-    const existingUser = await UserModel.findOne(
-      { username: user.username },
-      'password'
-    );
+    const user = await UserModel.findOne({ username });
 
-    if (!existingUser) {
-      const hash = await bcrypt.hash(user.password, 10);
-      const newUser = await UserModel.create({ ...user, password: hash });
-      id = newUser._id;
-    } else {
-      const match = await bcrypt.compare(user.password, existingUser.password);
-      id = existingUser._id;
-      if (!match) {
-        return { status: 401, body: 'Invalid password' };
-      }
+    if (!user) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const newUser = await UserModel.create({
+        username,
+        password: hashedPassword,
+      });
+
+      return createSession(newUser);
     }
 
-    const expires = new Date(Date.now() + 4 * 7 * 24 * 60 * 60 * 1000);
-    const session = await encrypt({ user, expires, id });
+    const isPasswordValid = await bcrypt.compare(password, user.password);
 
-    cookies().set('session', session, { expires, httpOnly: true });
+    if (!isPasswordValid) {
+      return { status: 401, body: 'Invalid password' };
+    }
+
+    return createSession(user);
   } catch (error) {
-    return { status: 500, body: error };
+    return { status: 500, error };
   }
+}
+
+async function createSession(user: any) {
+  const expires = new Date(Date.now() + 4 * 7 * 24 * 60 * 60 * 1000); // 4 weeks
+  const session = await encrypt({ id: user._id, expires });
+  cookies().set('session', session, { expires, httpOnly: true });
+
+  return { status: 200, body: 'User authenticated' };
 }
 
 export async function addNewStream(formData: FormData) {
@@ -152,6 +160,8 @@ export async function voteStream(id: string, vote: 'upvote' | 'downvote') {
     }
 
     await stream.save();
+
+    revalidatePath('/');
 
     return { status: 200, body: 'Vote added' };
   } catch (error) {
