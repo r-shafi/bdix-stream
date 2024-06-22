@@ -1,11 +1,19 @@
+'use client';
+
+import { voteStream } from '@/utilities/actions';
+
 interface VoteButtonProps {
+  id: string;
   type: 'upvote' | 'downvote';
   count: number;
 }
 
-const VoteButton = ({ type, count }: VoteButtonProps) => {
+const VoteButton = ({ id, type, count }: VoteButtonProps) => {
   return (
-    <button className="flex items-center gap-2 bg-transparent hover:bg-gray-100 transition-all px-2 py-1 rounded-md">
+    <button
+      onClick={async () => await voteStream(id, type)}
+      className="flex items-center gap-2 bg-transparent hover:bg-gray-100 transition-all px-2 py-1 rounded-md"
+    >
       {type === 'upvote' ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"
