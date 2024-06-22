@@ -3,9 +3,9 @@ import Button from './Button';
 
 const LINKS = [
   { title: 'Home', href: '/' },
-  { title: 'Sports', href: '/' },
-  { title: 'Entertainment', href: '/' },
-  { title: 'Announcement', href: '/' },
+  { title: 'Sports', href: '/sports' },
+  { title: 'Entertainment', href: '/entertainment' },
+  { title: 'Announcement', href: '/announcement' },
 ];
 
 const Header = () => {
