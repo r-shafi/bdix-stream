@@ -31,11 +31,6 @@ export async function login(formData: FormData) {
   const username = (formData.get('Username') as string).toLowerCase();
   const password = formData.get('Password') as string;
 
-  console.log({
-    username,
-    password,
-  });
-
   try {
     const user = await UserModel.findOne({ username });
 
@@ -144,7 +139,7 @@ export async function voteStream(id: string, vote: 'upvote' | 'downvote') {
     const existingVote = await VoteModel.findOne(
       {
         user: session.id,
-        stream: id,
+        link: id,
       },
       'type'
     );
