@@ -1,4 +1,6 @@
 import { StreamLink } from '@/types/interface';
+import CopyButton from './Clipboard';
+import { PlayButton } from './VideoPlayer';
 import VoteButton from './VoteButton';
 
 interface TableProps {
@@ -46,9 +48,14 @@ const Table = ({ data }: TableProps) => {
         <tbody>
           {rows.map((row: any, i) => (
             <tr className="bg-white border-b " key={i}>
-              <td className="px-6 py-4">{row[0]}</td>
+              <td className="px-6 py-4 flex justify-center items-center gap-2">
+                <PlayButton src={row[2]} />
+                {row[0]}
+              </td>
               <td className="px-6 py-4">{row[1] ? row[1] : '-'}</td>
-              <td className="px-6 py-4">{row[2]}</td>
+              <td className="px-6 py-4">
+                <CopyButton src={row[2]} />
+              </td>
               <td className="px-6 py-4">
                 {row[3] === 'sports' ? (
                   <svg
