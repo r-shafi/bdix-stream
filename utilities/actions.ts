@@ -1,7 +1,9 @@
 'use server';
 
+import { AnalyticsModel } from '@/schemas/analytics.schema';
 import { LinkModel } from '@/schemas/link.schema';
 import { UserModel } from '@/schemas/user.schema';
+import { VoteModel } from '@/schemas/vote.schema';
 import bcrypt from 'bcrypt';
 import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
@@ -101,6 +103,60 @@ export async function getStreams(type?: string) {
   } catch (error) {
     console.log(error);
     return [];
+  }
+}
+
+export async function analytics() {
+  try {
+    const visitors = await AnalyticsModel.findOne().select('visitorCount');
+    const users = await UserModel.countDocuments();
+    const streams = await LinkModel.countDocuments();
+
+    return { visitors, users, streams };
+  } catch (error) {
+    console.log(error);
+    return { visitors: 0, users: 0, streams: 0 };
+  }
+}
+
+export async function voteStream(id: string, vote: 'upvote' | 'downvote') {
+  const session = await getSession();
+
+  if (!session) {
+    return { status: 401, body: 'Unauthorized' };
+  }
+
+  try {
+    const stream = await LinkModel.findById(id, 'upvotes downvotes');
+
+    if (!stream) {
+      return { status: 404, body: 'Stream not found' };
+    }
+
+    const existingVote = await VoteModel.findOne(
+      {
+        user: session.id,
+        stream: id,
+      },
+      'type'
+    );
+
+    if (existingVote) {
+      return { status: 409, body: 'Vote already exists' };
+    }
+
+    if (vote === 'upvote') {
+      stream.upvotes += 1;
+    } else {
+      stream.downvotes += 1;
+    }
+
+    await stream.save();
+
+    return { status: 200, body: 'Vote added' };
+  } catch (error) {
+    console.log(error);
+    return error;
   }
 }
 
