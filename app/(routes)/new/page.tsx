@@ -1,5 +1,7 @@
 import Button from '@/app/components/Button';
 import Input from '@/app/components/Input';
+import { addNewStream, getSession } from '@/utilities/actions';
+import { redirect } from 'next/navigation';
 
 const FIELDS = [
   {
@@ -19,10 +21,16 @@ const FIELDS = [
   },
 ];
 
-const Page = () => {
+const Page = async () => {
+  const session = await getSession();
+
+  if (!session) {
+    redirect('/login');
+  }
+
   return (
     <div className="flex justify-center items-center min-h-[85vh]">
-      <form className="flex flex-col gap-4">
+      <form className="flex flex-col gap-4" action={addNewStream}>
         {FIELDS.map(({ label, type, required, placeholder }, i) => (
           <Input
             key={i}
@@ -35,7 +43,10 @@ const Page = () => {
 
         <label className="flex flex-col gap-2 text-sm font-medium text-gray-900">
           Stream Type
-          <select className="outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+          <select
+            className="outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            name="type"
+          >
             <option value="sports">Sports</option>
             <option value="entertainment">Entertainment</option>
           </select>
