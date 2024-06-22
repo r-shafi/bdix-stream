@@ -89,6 +89,21 @@ export async function addNewStream(formData: FormData) {
   }
 }
 
+export async function getStreams(type?: string) {
+  try {
+    const streams = await LinkModel.find(
+      type ? { type } : {},
+      '-__v -updatedAt'
+    )
+      .populate('user', 'username')
+      .sort({ createdAt: -1 });
+    return JSON.parse(JSON.stringify(streams));
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+}
+
 export async function getSession() {
   const session = cookies().get('session')?.value;
   if (!session) return null;
