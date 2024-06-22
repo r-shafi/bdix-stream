@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Button from './Button';
 
 const LINKS = [
   { title: 'Home', href: '/' },
@@ -18,9 +19,11 @@ const Header = () => {
           m3u8
         </a>
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          <Link href="/editor">Add New Link</Link>
+          <Link href="/new">
+            <Button title="Add New Link"></Button>
+          </Link>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-4">
           {LINKS.map((link) => (
             <Link key={link.title} href={link.href}>
               {link.title}
