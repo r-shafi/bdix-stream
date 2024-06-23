@@ -1,6 +1,6 @@
 'use client';
 
-import { voteStream } from '@/utilities/actions';
+import { voteStream } from '@/utilities/functions/auth';
 
 interface VoteButtonProps {
   id: string;

@@ -1,6 +1,6 @@
 import FormButton from '@/app/components/FormButton';
 import Input from '@/app/components/Input';
-import { addNewStream, getSession } from '@/utilities/actions';
+import { addNewStream, getSession } from '@/utilities/functions/auth';
 import { redirect } from 'next/navigation';
 
 const FIELDS = [

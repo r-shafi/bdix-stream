@@ -1,5 +1,5 @@
 import { StreamLink } from '@/types/interface';
-import { getStreams } from '@/utilities/actions';
+import { getStreams } from '@/utilities/functions/auth';
 import Table from './components/Table';
 
 export default async function Home() {

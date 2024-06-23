@@ -1,6 +1,6 @@
 import FormButton from '@/app/components/FormButton';
 import Input from '@/app/components/Input';
-import { getSession, login } from '@/utilities/actions';
+import { getSession, login } from '@/utilities/functions/auth';
 import { redirect } from 'next/navigation';
 
 const FIELDS = [
