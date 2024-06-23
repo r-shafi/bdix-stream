@@ -1,12 +1,8 @@
-export const response = (
-  body: any,
-  error: boolean = false,
-  message: string
-) => {
+export const response = (body: any, error?: boolean, message?: string) => {
   if (error) {
     return JSON.stringify({
       error: true,
-      message: body.message || message || 'An error occurred',
+      message: message || body.message || 'An error occurred',
       body: error,
     });
   }
