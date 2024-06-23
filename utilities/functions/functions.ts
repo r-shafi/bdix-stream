@@ -1,14 +1,19 @@
-export const response = (body: any, error?: boolean, message?: string) => {
-  if (error) {
-    return JSON.stringify({
+export const response = (payload: {
+  body: any;
+  error?: boolean;
+  message?: string;
+}) => {
+  if (payload.error) {
+    return {
       error: true,
-      message: message || body.message || 'An error occurred',
-      body: error,
-    });
+      message: payload.message || payload.body.message || 'An error occurred',
+      body: payload.body || undefined,
+    };
   }
-  return JSON.stringify({
+
+  return {
     error: false,
-    message: message || 'Success',
-    ...(body && { body }),
-  });
+    message: payload.message || 'Success',
+    body: payload.body,
+  };
 };
