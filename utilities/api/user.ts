@@ -26,12 +26,16 @@ export async function login(formData: FormData) {
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
-      return response(undefined, true, 'Invalid password');
+      return response({
+        error: true,
+        message: 'Invalid password',
+        body: undefined,
+      });
     }
 
     return createSession(user);
   } catch (error) {
     console.log(error);
-    return response(error, true);
+    return response({ error: true, body: error });
   }
 }

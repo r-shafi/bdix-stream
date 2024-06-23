@@ -15,10 +15,10 @@ export async function getStreams(type?: string) {
       .populate('user', 'username')
       .sort({ createdAt: -1 });
 
-    return response(streams);
+    return response({ body: streams });
   } catch (error) {
     console.log(error);
-    return response(error, true);
+    return response({ error: true, body: error });
   }
 }
 
@@ -26,7 +26,11 @@ export async function createStream(formData: FormData) {
   const session = await getSession();
 
   if (!session) {
-    return response(undefined, true, 'Unauthorized');
+    return response({
+      error: true,
+      body: undefined,
+      message: 'You must be logged in to create a stream',
+    });
   }
 
   const stream = {
@@ -41,15 +45,19 @@ export async function createStream(formData: FormData) {
     const existingStream = await StreamModel.findOne({ url: stream.url });
 
     if (existingStream) {
-      return response(undefined, true, 'Stream already exists');
+      return response({
+        error: true,
+        body: undefined,
+        message: 'Stream already exists',
+      });
     }
 
     await StreamModel.create(stream);
 
-    return response(undefined, false, 'Stream added');
+    return response({ error: false, body: undefined, message: 'Stream added' });
   } catch (error) {
     console.log(error);
-    return response(error, true);
+    return response({ error: true, body: error });
   }
 }
 
@@ -57,14 +65,22 @@ export async function voteStream(id: string, vote: 'upvote' | 'downvote') {
   const session = await getSession();
 
   if (!session) {
-    return response(undefined, true, 'You must be logged in to vote');
+    return response({
+      error: true,
+      body: undefined,
+      message: 'You must be logged in to vote',
+    });
   }
 
   try {
     const stream = await StreamModel.findById(id, 'upvotes downvotes');
 
     if (!stream) {
-      return response(undefined, true, 'Stream not found');
+      return response({
+        error: true,
+        body: undefined,
+        message: 'Stream not found',
+      });
     }
 
     const existingVote = await VoteModel.findOne(
@@ -82,7 +98,11 @@ export async function voteStream(id: string, vote: 'upvote' | 'downvote') {
       stream[`${vote}s`] -= 1;
       await stream.save();
 
-      return response(undefined, false, 'Vote removed');
+      return response({
+        error: false,
+        body: undefined,
+        message: 'Vote removed',
+      });
     }
 
     const newVote = await VoteModel.create({
@@ -95,9 +115,13 @@ export async function voteStream(id: string, vote: 'upvote' | 'downvote') {
     await stream.save();
 
     revalidatePath('/');
-    return response(undefined, false, 'Vote added');
+    return response({
+      error: false,
+      body: undefined,
+      message: 'Vote added',
+    });
   } catch (error) {
     console.log(error);
-    return response(error, true);
+    return response({ error: true, body: error });
   }
 }
