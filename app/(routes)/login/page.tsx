@@ -1,26 +1,29 @@
-import FormButton from '@/app/components/FormButton';
-import Input from '@/app/components/Input';
-import { getSession, login } from '@/utilities/functions/auth';
+import Form from '@/app/components/Form';
+import { Field } from '@/types/interface';
+import { login } from '@/utilities/api/user';
+import { getSession } from '@/utilities/functions/auth';
 import { redirect } from 'next/navigation';
 
-const FIELDS = [
+const fields: Field[] = [
   {
     label: 'Username',
     type: 'text',
-    autoComplete: 'given-name',
+    required: true,
+    placeholder: 'Username',
   },
   {
     label: 'Password',
     type: 'password',
-    autoComplete: 'current-password',
+    required: true,
+    placeholder: '****',
   },
 ];
 
 const Page = async () => {
   return (
     <div className="flex justify-center items-center min-h-[85vh]">
-      <form
-        className="flex flex-col gap-4"
+      <Form
+        fields={fields}
         action={async (formData) => {
           'use server';
           await login(formData);
@@ -29,19 +32,8 @@ const Page = async () => {
             redirect('/new');
           }
         }}
-      >
-        {FIELDS.map(({ label, type, autoComplete }, i) => (
-          <Input
-            key={i}
-            label={label}
-            type={type}
-            autoComplete={autoComplete}
-            required={true}
-          ></Input>
-        ))}
-
-        <FormButton title="Login / Register" type="submit"></FormButton>
-      </form>
+        buttonTitle="Login / Register"
+      ></Form>
     </div>
   );
 };
