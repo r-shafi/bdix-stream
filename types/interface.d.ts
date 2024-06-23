@@ -14,3 +14,22 @@ export interface StreamLink {
   updatedAt: Date;
   __v: number;
 }
+
+export interface Field {
+  label: string;
+  type: string;
+  required: boolean;
+  placeholder: string;
+  options?: Option[];
+}
+
+export interface FormProps {
+  fields: Field[];
+  action: (formDa: FormData) => void;
+  buttonTitle: string;
+}
+
+export interface Option {
+  value: string;
+  label: string;
+}
