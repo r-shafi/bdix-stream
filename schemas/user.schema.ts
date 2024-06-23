@@ -21,7 +21,7 @@ const UserSchema = new Schema(
     votes: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Vote',
+        ref: 'vote',
       },
     ],
   },
@@ -30,6 +30,6 @@ const UserSchema = new Schema(
   }
 );
 
-const UserModel = mongoose.models.User || mongoose.model('User', UserSchema);
+const UserModel = mongoose.models.user || mongoose.model('user', UserSchema);
 
 export { UserModel };

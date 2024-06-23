@@ -4,7 +4,7 @@ const StreamSchema = new Schema(
   {
     user: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'user',
       required: true,
     },
     title: {
@@ -41,6 +41,6 @@ const StreamSchema = new Schema(
 );
 
 const StreamModel =
-  mongoose.models.Stream || mongoose.model('Stream', StreamSchema);
+  mongoose.models.stream || mongoose.model('stream', StreamSchema);
 
 export { StreamModel };
