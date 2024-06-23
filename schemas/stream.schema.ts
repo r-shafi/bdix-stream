@@ -41,6 +41,6 @@ const StreamSchema = new Schema(
 );
 
 const StreamModel =
-  mongoose.models.Link || mongoose.model('Stream', StreamSchema);
+  mongoose.models.Stream || mongoose.model('Stream', StreamSchema);
 
 export { StreamModel };
