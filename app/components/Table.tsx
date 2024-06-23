@@ -107,12 +107,12 @@ const Table = ({ data }: TableProps) => {
               </td>
               <td className="px-6 py-4 flex items-center gap-1">
                 <VoteButton
-                  id={row[6][2]}
+                  id={JSON.stringify(row[6][2])}
                   type="upvote"
                   count={row[6][0]}
                 ></VoteButton>
                 <VoteButton
-                  id={row[6][2]}
+                  id={JSON.stringify(row[6][2])}
                   type="downvote"
                   count={row[6][1]}
                 ></VoteButton>

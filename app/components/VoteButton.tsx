@@ -11,7 +11,7 @@ interface VoteButtonProps {
 const VoteButton = ({ id, type, count }: VoteButtonProps) => {
   return (
     <button
-      onClick={async () => await voteStream(id, type)}
+      onClick={async () => await voteStream(JSON.parse(id), type)}
       className="flex items-center gap-2 bg-transparent hover:bg-gray-100 transition-all px-2 py-1 rounded-md"
     >
       {type === 'upvote' ? (
