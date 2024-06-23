@@ -1,9 +1,10 @@
-import FormButton from '@/app/components/FormButton';
-import Input from '@/app/components/Input';
-import { addNewStream, getSession } from '@/utilities/functions/auth';
+import Form from '@/app/components/Form';
+import { Field } from '@/types/interface';
+import { createStream } from '@/utilities/api/stream';
+import { getSession } from '@/utilities/functions/auth';
 import { redirect } from 'next/navigation';
 
-const FIELDS = [
+const fields: Field[] = [
   {
     label: 'Title',
     type: 'text',
@@ -13,11 +14,24 @@ const FIELDS = [
   {
     label: 'Description',
     type: 'text',
+    required: false,
+    placeholder: '',
   },
   {
     label: 'URL',
     type: 'url',
     required: true,
+    placeholder: '',
+  },
+  {
+    label: 'Stream Type',
+    type: 'select',
+    required: true,
+    placeholder: '',
+    options: [
+      { value: 'sports', label: 'Sports' },
+      { value: 'entertainment', label: 'Entertainment' },
+    ],
   },
 ];
 
@@ -30,30 +44,11 @@ const Page = async () => {
 
   return (
     <div className="flex justify-center items-center min-h-[85vh]">
-      <form className="flex flex-col gap-4" action={addNewStream}>
-        {FIELDS.map(({ label, type, required, placeholder }, i) => (
-          <Input
-            key={i}
-            label={label}
-            type={type}
-            required={required}
-            placeholder={placeholder}
-          ></Input>
-        ))}
-
-        <label className="flex flex-col gap-2 text-sm font-medium text-gray-900">
-          Stream Type
-          <select
-            className="outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            name="type"
-          >
-            <option value="sports">Sports</option>
-            <option value="entertainment">Entertainment</option>
-          </select>
-        </label>
-
-        <FormButton title="Add New Link" type="submit"></FormButton>
-      </form>
+      <Form
+        fields={fields}
+        action={createStream}
+        buttonTitle="Add New Stream"
+      ></Form>
     </div>
   );
 };
