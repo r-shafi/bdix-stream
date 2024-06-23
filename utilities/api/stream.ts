@@ -3,8 +3,8 @@
 import { StreamModel } from '@/schemas/stream.schema';
 import { VoteModel } from '@/schemas/vote.schema';
 import { revalidatePath } from 'next/cache';
+import { getSession } from '../functions/auth';
 import { response } from '../functions/functions';
-import { getSession } from './actions';
 
 export async function getStreams(type?: string) {
   try {

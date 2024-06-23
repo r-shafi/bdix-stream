@@ -3,8 +3,8 @@
 import bcrypt from 'bcrypt';
 
 import { UserModel } from '@/schemas/user.schema';
+import { createSession } from '../functions/auth';
 import { response } from '../functions/functions';
-import { createSession } from './actions';
 
 export async function login(formData: FormData) {
   const username = (formData.get('Username') as string).toLowerCase();

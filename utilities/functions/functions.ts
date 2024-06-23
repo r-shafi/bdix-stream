@@ -6,5 +6,9 @@ export const response = (body: any, error?: boolean, message?: string) => {
       body: error,
     });
   }
-  return JSON.stringify({ error: false, message: message || 'Success', body });
+  return JSON.stringify({
+    error: false,
+    message: message || 'Success',
+    ...(body && { body }),
+  });
 };

@@ -7,14 +7,14 @@ const VoteSchema = new Schema(
       ref: 'User',
       required: true,
     },
-    link: {
+    stream: {
       type: Schema.Types.ObjectId,
-      ref: 'Link',
+      ref: 'Stream',
       required: true,
     },
     type: {
       type: String,
-      enum: ['upvote', 'downvote'],
+      enum: ['upvote', 'downvote', 'removed'],
       required: true,
     },
   },
@@ -22,8 +22,6 @@ const VoteSchema = new Schema(
     timestamps: true,
   }
 );
-
-VoteSchema.index({ user: 1, link: 1 }, { unique: true });
 
 const VoteModel = mongoose.models.Vote || mongoose.model('Vote', VoteSchema);
 
