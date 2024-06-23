@@ -1,0 +1,37 @@
+'use server';
+
+import bcrypt from 'bcrypt';
+
+import { UserModel } from '@/schemas/user.schema';
+import { response } from '../functions/functions';
+import { createSession } from './actions';
+
+export async function login(formData: FormData) {
+  const username = (formData.get('Username') as string).toLowerCase();
+  const password = formData.get('Password') as string;
+
+  try {
+    const user = await UserModel.findOne({ username });
+
+    if (!user) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const newUser = await UserModel.create({
+        username,
+        password: hashedPassword,
+      });
+
+      return createSession(newUser);
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      return response(undefined, true, 'Invalid password');
+    }
+
+    return createSession(user);
+  } catch (error) {
+    console.log(error);
+    return response(error, true);
+  }
+}
