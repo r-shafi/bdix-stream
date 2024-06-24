@@ -7,8 +7,8 @@ import { createSession } from '../functions/auth';
 import { response } from '../functions/functions';
 
 export async function login(formData: FormData) {
-  const username = (formData.get('Username') as string).toLowerCase();
-  const password = formData.get('Password') as string;
+  const username = (formData.get('username') as string).toLowerCase();
+  const password = formData.get('password') as string;
 
   try {
     const user = await UserModel.findOne({ username });
