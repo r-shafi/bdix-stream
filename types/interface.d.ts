@@ -18,9 +18,11 @@ export interface StreamLink {
 export interface Field {
   label: string;
   type: string;
-  required: boolean;
+  name: string;
   placeholder: string;
   options?: Option[];
+  required?: boolean;
+  autocomplete?: string;
 }
 
 export interface FormProps {
