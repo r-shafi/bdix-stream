@@ -1,7 +1,7 @@
 import { StreamLink } from '@/types/interface';
-import CopyButton from './Clipboard';
-import PlayButton from './PlayButton';
-import VoteButton from './VoteButton';
+import ClipboardButton from './Buttons/ClipboardButton';
+import PlayButton from './Buttons/PlayButton';
+import VoteButton from './Buttons/VoteButton';
 
 interface TableProps {
   data: StreamLink[];
@@ -52,7 +52,7 @@ const Table = ({ data }: TableProps) => {
               <td className="px-6 py-4">{row[1] ? row[1] : '-'}</td>
               <td className="px-6 py-4 flex items-center gap-4">
                 <PlayButton src={row[2]} />
-                <CopyButton src={row[2]} />
+                <ClipboardButton src={row[2]} />
               </td>
               <td className="px-6 py-4">
                 {row[3] === 'sports' ? (

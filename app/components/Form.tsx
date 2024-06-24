@@ -1,5 +1,5 @@
 import { FormProps } from '@/types/interface';
-import FormButton from './FormButton';
+import FormButton from './Buttons/FormButton';
 import Input from './Input';
 
 const Form = ({ action, fields, buttonTitle }: FormProps) => {
