@@ -19,9 +19,9 @@ export interface Field {
   label: string;
   type: string;
   name: string;
-  placeholder: string;
   options?: Option[];
   required?: boolean;
+  placeholder?: string;
   autocomplete?: string;
 }
 
