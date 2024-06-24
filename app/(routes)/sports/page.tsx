@@ -1,9 +1,12 @@
-import Table from '@/app/components/Table';
-import { StreamLink } from '@/types/interface';
-import { getStreams } from '@/utilities/functions/auth';
+import Table from '@/app/components/Display/Table';
+import { getStreams } from '@/utilities/api/stream';
 
 export default async function Home() {
-  const streams: StreamLink[] = await getStreams('sports');
+  const response = await getStreams('sports');
 
-  return <div>{<Table data={streams}></Table>}</div>;
+  if (response.error) {
+    return <div>{response.message}</div>;
+  }
+
+  return <div>{<Table data={response.body}></Table>}</div>;
 }
