@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 
-const CopyButton = ({ src }: { src: string }) => {
+const ClipboardButton = ({ src }: { src: string }) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
@@ -46,4 +46,4 @@ const CopyButton = ({ src }: { src: string }) => {
   );
 };
 
-export default CopyButton;
+export default ClipboardButton;
