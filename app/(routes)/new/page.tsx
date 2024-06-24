@@ -10,28 +10,29 @@ const fields: Field[] = [
     type: 'text',
     required: true,
     placeholder: 'T-Sports - Ban vs Aus',
+    name: 'title',
   },
   {
     label: 'Description',
     type: 'text',
     required: false,
-    placeholder: '',
+    name: 'description',
   },
   {
     label: 'URL',
     type: 'url',
     required: true,
-    placeholder: '',
+    name: 'url',
   },
   {
     label: 'Stream Type',
     type: 'select',
     required: true,
-    placeholder: '',
     options: [
       { value: 'sports', label: 'Sports' },
       { value: 'entertainment', label: 'Entertainment' },
     ],
+    name: 'type',
   },
 ];
 

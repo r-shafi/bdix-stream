@@ -10,12 +10,16 @@ const fields: Field[] = [
     type: 'text',
     required: true,
     placeholder: 'Username',
+    name: 'username',
+    autocomplete: 'given-name',
   },
   {
     label: 'Password',
     type: 'password',
     required: true,
     placeholder: '****',
+    name: 'password',
+    autocomplete: 'current-password',
   },
 ];
 
