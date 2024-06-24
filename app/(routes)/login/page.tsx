@@ -1,4 +1,4 @@
-import Form from '@/app/components/Form';
+import Form from '@/app/components/Forms/Form';
 import { Field } from '@/types/interface';
 import { login } from '@/utilities/api/user';
 import { getSession } from '@/utilities/functions/auth';

@@ -1,5 +1,5 @@
 import { getStreams } from '@/utilities/api/stream';
-import Table from './components/Table';
+import Table from './components/Display/Table';
 
 export default async function Home() {
   const response: any = await getStreams();
