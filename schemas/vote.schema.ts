@@ -4,12 +4,12 @@ const VoteSchema = new Schema(
   {
     user: {
       type: Schema.Types.ObjectId,
-      ref: 'user',
+      ref: 'User',
       required: true,
     },
     stream: {
       type: Schema.Types.ObjectId,
-      ref: 'stream',
+      ref: 'Stream',
       required: true,
     },
     type: {
@@ -23,6 +23,6 @@ const VoteSchema = new Schema(
   }
 );
 
-const VoteModel = mongoose.models.vote || mongoose.model('vote', VoteSchema);
+const VoteModel = mongoose.models.Vote || mongoose.model('Vote', VoteSchema);
 
 export { VoteModel };
