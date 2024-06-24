@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Button from './Buttons/Button';
+import Button from '../Buttons/Button';
 
 const LINKS = [
   { title: 'Home', href: '/' },

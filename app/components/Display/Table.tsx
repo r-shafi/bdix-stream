@@ -1,7 +1,8 @@
 import { StreamLink } from '@/types/interface';
-import ClipboardButton from './Buttons/ClipboardButton';
-import PlayButton from './Buttons/PlayButton';
-import VoteButton from './Buttons/VoteButton';
+import ClipboardButton from '../Buttons/ClipboardButton';
+import PlayButton from '../Buttons/PlayButton';
+import VoteButton from '../Buttons/VoteButton';
+import StreamIcon from './StreamIcon';
 
 interface TableProps {
   data: StreamLink[];
@@ -54,45 +55,8 @@ const Table = ({ data }: TableProps) => {
                 <PlayButton src={row[2]} />
                 <ClipboardButton src={row[2]} />
               </td>
-              <td className="px-6 py-4">
-                {row[3] === 'sports' ? (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-6 h-6"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="#2c3e50"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-                    <path d="M12 7l4.76 3.45l-1.76 5.55h-6l-1.76 -5.55z" />
-                    <path d="M12 7v-4m3 13l2.5 3m-.74 -8.55l3.74 -1.45m-11.44 7.05l-2.56 2.95m.74 -8.55l-3.74 -1.45" />
-                  </svg>
-                ) : (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-6 h-6"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="#2c3e50"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
-                    <path d="M8 4l0 16" />
-                    <path d="M16 4l0 16" />
-                    <path d="M4 8l4 0" />
-                    <path d="M4 16l4 0" />
-                    <path d="M4 12l16 0" />
-                    <path d="M16 8l4 0" />
-                    <path d="M16 16l4 0" />
-                  </svg>
-                )}
+              <td className="px-6 py-4" title={row[3]}>
+                <StreamIcon type={row[3]} />
               </td>
               <td className="px-6 py-4">{row[4]}</td>
               <td className="px-6 py-4">
