@@ -1,13 +1,14 @@
+import { StreamLink } from '@/types/interface';
 import Link from 'next/link';
 
-const PlayButton = ({ src }: { src: string }) => {
-  const base64 = Buffer.from(src).toString('base64');
+const PlayButton = ({ stream }: { stream: StreamLink }) => {
+  const base64 = Buffer.from(JSON.stringify(stream)).toString('base64');
 
   return (
     <Link
       href={{
         pathname: '/play',
-        query: { src: base64 },
+        query: { stream: base64 },
       }}
       className="py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 flex items-center gap-2"
     >
