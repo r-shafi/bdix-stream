@@ -2,7 +2,6 @@ import Link from 'next/link';
 
 const PlayButton = ({ src }: { src: string }) => {
   const base64 = Buffer.from(src).toString('base64');
-  console.log(base64);
 
   return (
     <Link
