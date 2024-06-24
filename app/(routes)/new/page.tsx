@@ -29,8 +29,10 @@ const fields: Field[] = [
     type: 'select',
     required: true,
     options: [
-      { value: 'sports', label: 'Sports' },
+      { value: 'cricket', label: 'Cricket' },
+      { value: 'football', label: 'Football' },
       { value: 'entertainment', label: 'Entertainment' },
+      { value: 'news', label: 'News' },
     ],
     name: 'type',
   },

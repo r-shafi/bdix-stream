@@ -32,8 +32,8 @@ const StreamSchema = new Schema(
     },
     type: {
       type: String,
-      enum: ['sports', 'entertainment'],
-      default: 'sports',
+      enum: ['cricket', 'football', 'entertainment', 'news'],
+      required: true,
     },
   },
   {
