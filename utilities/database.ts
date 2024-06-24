@@ -2,6 +2,10 @@
 
 import mongoose from 'mongoose';
 
+const userModel = require('./../schemas/user.schema');
+const streamModel = require('./../schemas/stream.schema');
+const voteModel = require('./../schemas/vote.schema');
+
 const databaseConnect = async () => {
   try {
     await mongoose.connect(process.env.DATABASE as string);
