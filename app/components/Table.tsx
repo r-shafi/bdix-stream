@@ -1,6 +1,6 @@
 import { StreamLink } from '@/types/interface';
 import CopyButton from './Clipboard';
-import { PlayButton } from './VideoPlayer';
+import PlayButton from './PlayButton';
 import VoteButton from './VoteButton';
 
 interface TableProps {
@@ -11,7 +11,7 @@ const Table = ({ data }: TableProps) => {
   const columns = [
     'Title',
     'Description',
-    'URL',
+    'Stream',
     'Type',
     'Uploader',
     'Created At',
@@ -48,12 +48,10 @@ const Table = ({ data }: TableProps) => {
         <tbody>
           {rows.map((row: any, i) => (
             <tr className="bg-white border-b " key={i}>
-              <td className="px-6 py-4 flex justify-center items-center gap-2">
-                <PlayButton src={row[2]} />
-                {row[0]}
-              </td>
+              <td className="px-6 py-4">{row[0]}</td>
               <td className="px-6 py-4">{row[1] ? row[1] : '-'}</td>
-              <td className="px-6 py-4">
+              <td className="px-6 py-4 flex items-center gap-4">
+                <PlayButton src={row[2]} />
                 <CopyButton src={row[2]} />
               </td>
               <td className="px-6 py-4">
