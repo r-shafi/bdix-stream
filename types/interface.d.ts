@@ -5,14 +5,13 @@ export interface StreamLink {
     username: string;
   };
   title: string;
-  description: string;
+  description?: string;
   url: string;
   upvotes: number;
   downvotes: number;
   type: string;
   createdAt: Date;
-  updatedAt: Date;
-  __v: number;
+  updatedAt?: Date;
 }
 
 export interface Field {

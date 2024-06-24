@@ -35,8 +35,8 @@ const Table = ({ data }: TableProps) => {
 
   return (
     <div className="relative overflow-x-auto">
-      <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50  ">
+      <table className="w-full text-left text-gray-600 rounded-md overflow-hidden">
+        <thead className="text-xs text-gray-800 uppercase bg-gray-50">
           <tr>
             {columns.map((column) => (
               <th scope="col" className="px-6 py-3" key={column}>
@@ -48,11 +48,23 @@ const Table = ({ data }: TableProps) => {
 
         <tbody>
           {rows.map((row: any, i) => (
-            <tr className="bg-white border-b " key={i}>
+            <tr className="bg-white border-b" key={i}>
               <td className="px-6 py-4">{row[0]}</td>
               <td className="px-6 py-4">{row[1] ? row[1] : '-'}</td>
               <td className="px-6 py-4 flex items-center gap-4">
-                <PlayButton src={row[2]} />
+                <PlayButton
+                  stream={{
+                    title: row[0],
+                    description: row[1],
+                    url: row[2],
+                    type: row[3],
+                    user: { _id: '', username: row[4] },
+                    createdAt: row[5],
+                    upvotes: row[6][0],
+                    downvotes: row[6][1],
+                    _id: row[6][2],
+                  }}
+                />
                 <ClipboardButton src={row[2]} />
               </td>
               <td className="px-6 py-4" title={row[3]}>
