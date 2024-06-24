@@ -42,7 +42,7 @@ const Page = async () => {
   const session = await getSession();
 
   if (!session) {
-    redirect('/login');
+    redirect('/authenticate');
   }
 
   return (

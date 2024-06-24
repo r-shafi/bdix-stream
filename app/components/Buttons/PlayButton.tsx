@@ -7,7 +7,7 @@ const PlayButton = ({ stream }: { stream: StreamLink }) => {
   return (
     <Link
       href={{
-        pathname: '/play',
+        pathname: '/stream',
         query: { stream: base64 },
       }}
       className="py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 flex items-center gap-2"

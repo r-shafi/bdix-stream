@@ -42,7 +42,7 @@ const Page = async () => {
     await login(formData);
     const session = await getSession();
     if (session) {
-      redirect('/new');
+      redirect('/share');
     }
   };
 
