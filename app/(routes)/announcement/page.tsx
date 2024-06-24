@@ -43,7 +43,13 @@ const Page = () => {
       </p>
 
       <p className="mt-4">
-        Happy Streaming! <br /> Shafi Rayhan
+        Happy Streaming! <br />{' '}
+        <a
+          href="mailto:rayhanshafi7@gmail.com"
+          className="text-red-400 font-medium text-lg hover:underline"
+        >
+          Shafi Rayhan
+        </a>
       </p>
     </div>
   );
