@@ -22,13 +22,16 @@ const ClipboardButton = ({ src }: { src: string }) => {
   return (
     <button
       type="button"
-      className="py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 flex items-center gap-2"
       onClick={handleCopy}
+      className={
+        'py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 flex items-center gap-2' +
+        (copied ? ' text-green-500' : '')
+      }
     >
       <svg
         className="h-4 w-4"
         data-slot="icon"
-        fill={copied ? 'black' : 'none'}
+        fill="none"
         strokeWidth="1.5"
         stroke="currentColor"
         viewBox="0 0 24 24"
