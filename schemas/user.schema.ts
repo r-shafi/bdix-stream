@@ -18,12 +18,11 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
-    votes: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Vote',
-      },
-    ],
+    role: {
+      type: String,
+      enum: ['admin', 'user'],
+      default: 'user',
+    },
   },
   {
     timestamps: true,

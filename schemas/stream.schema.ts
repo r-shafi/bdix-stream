@@ -14,6 +14,7 @@ const StreamSchema = new Schema(
     },
     description: {
       type: String,
+      maxlength: 255,
     },
     url: {
       type: String,
