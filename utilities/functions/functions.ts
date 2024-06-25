@@ -1,8 +1,10 @@
+import { Response } from '@/types/interface';
+
 export const response = (payload: {
   body: any;
   error?: boolean;
   message?: string;
-}) => {
+}): Response => {
   if (payload.error) {
     return {
       error: true,

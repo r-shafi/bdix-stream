@@ -2,6 +2,7 @@
 
 import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
+import { response } from './functions';
 
 const key = new TextEncoder().encode(process.env.SECRET as string);
 
@@ -29,7 +30,11 @@ export async function createSession(user: any) {
   const session = await encrypt({ id: user._id, expires });
   cookies().set('session', session, { expires, httpOnly: true });
 
-  return { status: 200, body: 'User authenticated' };
+  return response({
+    error: false,
+    message: 'User authenticated',
+    body: undefined,
+  });
 }
 
 export async function getSession() {

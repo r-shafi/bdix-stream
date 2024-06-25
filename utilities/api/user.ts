@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 import { createSession } from '../functions/auth';
 import { response } from '../functions/functions';
 
-export async function login(formData: FormData) {
+export async function authenticate(formData: FormData) {
   const username = (formData.get('username') as string).toLowerCase();
   const password = formData.get('password') as string;
   const email = formData.get('email') as string;
