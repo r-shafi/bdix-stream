@@ -1,7 +1,7 @@
 import Tabs from '@/app/components/Display/Tabs';
 import Form from '@/app/components/Forms/Form';
 import { Field } from '@/types/interface';
-import { login } from '@/utilities/api/user';
+import { authenticate } from '@/utilities/api/user';
 import { getSession } from '@/utilities/functions/auth';
 import { redirect } from 'next/navigation';
 
@@ -37,19 +37,20 @@ const registerFormFields: Field[] = [
 ];
 
 const Page = async () => {
-  const authenticate = async (formData: FormData) => {
+  const authenticateServer = async (formData: FormData) => {
     'use server';
-    await login(formData);
+    const result = await authenticate(formData);
     const session = await getSession();
     if (session) {
       redirect('/share');
     }
+    return result;
   };
 
   const Login = (
     <Form
       fields={loginFormFields}
-      action={authenticate}
+      action={authenticateServer}
       buttonTitle="Login"
     ></Form>
   );
@@ -57,7 +58,7 @@ const Page = async () => {
   const Register = (
     <Form
       fields={registerFormFields}
-      action={authenticate}
+      action={authenticateServer}
       buttonTitle="Register"
     ></Form>
   );
