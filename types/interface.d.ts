@@ -26,11 +26,17 @@ export interface Field {
 
 export interface FormProps {
   fields: Field[];
-  action: (formDa: FormData) => void;
+  action: (formData: FormData) => Promise<Response>;
   buttonTitle: string;
 }
 
 export interface Option {
   value: string;
   label: string;
+}
+
+export interface Response {
+  error: boolean;
+  message: string;
+  body: any;
 }
