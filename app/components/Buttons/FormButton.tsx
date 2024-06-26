@@ -1,14 +1,10 @@
 'use client';
 
-import { useFormStatus } from 'react-dom';
-
-const FormButton = ({ title, type = 'button' }: ButtonProps) => {
-  const { pending } = useFormStatus();
-
+const FormButton = ({ title, type = 'button', pending }: ButtonProps) => {
   return (
     <button
       type={type}
-      className="py-2.5 px-5 me-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 flex justify-center items-center"
+      className="py-2.5 px-5 me-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 flex justify-center items-center disabled:opacity-50 disabled:cursor-not-allowed"
       disabled={pending}
     >
       {pending && (
@@ -39,5 +35,6 @@ export default FormButton;
 
 interface ButtonProps {
   title: string;
+  pending: boolean;
   type?: 'button' | 'submit';
 }
