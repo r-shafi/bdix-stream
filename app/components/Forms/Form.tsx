@@ -1,16 +1,18 @@
 'use client';
 
-import { FormProps, Response } from '@/types/interface';
+import { Field, FormProps, Response } from '@/types/interface';
+import forms from '@/utilities/forms/forms';
 import { useState } from 'react';
 import FormButton from '../Buttons/FormButton';
 import Toast from '../Layout/Toast';
 import Input from './Input';
 import Select from './Select';
 
-const Form = ({ action, fields, buttonTitle }: FormProps) => {
+const Form = ({ action, form, buttonTitle }: FormProps) => {
   const [show, setShow] = useState(false);
   const [content, setContent] = useState<Response | null>(null);
   const [pending, setPending] = useState(false);
+  const fields: Field[] = forms[form];
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     if (pending) return;
