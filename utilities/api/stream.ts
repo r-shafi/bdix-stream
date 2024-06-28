@@ -105,6 +105,7 @@ export async function voteStream(id: string, vote: 'upvote' | 'downvote') {
       stream[`${vote}s`] -= 1;
       await stream.save();
 
+      revalidatePath('/');
       return response({
         error: false,
         body: undefined,
