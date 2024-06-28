@@ -47,6 +47,11 @@ const forms = {
       placeholder: 'Email (optional)',
       name: 'email',
       autocomplete: 'email',
+      validation: {
+        minLen: 5,
+        maxLen: 64,
+        pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      },
     },
     {
       label: 'Password',
