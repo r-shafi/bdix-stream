@@ -45,11 +45,24 @@ const Page = async () => {
     redirect('/authenticate');
   }
 
+  const createStreamServer = async (formData: FormData) => {
+    'use server';
+    const result = await createStream(formData);
+
+    if (result.error) {
+      return result;
+    }
+
+    redirect('/');
+
+    return result;
+  };
+
   return (
     <div className="flex justify-center items-center min-h-[85vh]">
       <Form
         fields={fields}
-        action={createStream}
+        action={createStreamServer}
         buttonTitle="Add New Stream"
       ></Form>
     </div>
