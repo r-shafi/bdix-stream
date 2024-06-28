@@ -34,9 +34,9 @@ export async function createStream(formData: FormData) {
   }
 
   const stream = {
-    title: formData.get('Title') as string,
-    description: formData.get('Description') as string,
-    url: formData.get('URL') as string,
+    title: formData.get('title') as string,
+    description: formData.get('description') as string,
+    url: formData.get('url') as string,
     type: formData.get('type') as string,
     user: session.id,
   };
