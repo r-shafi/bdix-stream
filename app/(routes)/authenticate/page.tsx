@@ -5,37 +5,6 @@ import { authenticate } from '@/utilities/api/user';
 import { getSession } from '@/utilities/functions/auth';
 import { redirect } from 'next/navigation';
 
-const loginFormFields: Field[] = [
-  {
-    label: 'Username',
-    type: 'text',
-    required: true,
-    placeholder: 'Username',
-    name: 'username',
-    autocomplete: 'given-name',
-  },
-  {
-    label: 'Password',
-    type: 'password',
-    required: true,
-    placeholder: '****',
-    name: 'password',
-    autocomplete: 'current-password',
-  },
-];
-
-const registerFormFields: Field[] = [
-  ...loginFormFields,
-  {
-    label: 'Email',
-    type: 'email',
-    required: false,
-    placeholder: 'Email (optional)',
-    name: 'email',
-    autocomplete: 'email',
-  },
-];
-
 const Page = async () => {
   const authenticateServer = async (formData: FormData) => {
     'use server';
@@ -47,17 +16,11 @@ const Page = async () => {
     return result;
   };
 
-  const Login = (
-    <Form
-      fields={loginFormFields}
-      action={authenticateServer}
-      buttonTitle="Login"
-    ></Form>
-  );
+  const Login = <Form form='loginForm' action={authenticateServer} buttonTitle="Login"></Form>;
 
   const Register = (
     <Form
-      fields={registerFormFields}
+      form="registerForm"
       action={authenticateServer}
       buttonTitle="Register"
     ></Form>
