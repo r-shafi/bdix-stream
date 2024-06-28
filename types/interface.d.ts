@@ -22,10 +22,15 @@ export interface Field {
   required?: boolean;
   placeholder?: string;
   autocomplete?: string;
+  validation?: {
+    minLen?: number;
+    maxLen?: number;
+    pattern?: RegExp;
+  };
 }
 
 export interface FormProps {
-  fields: Field[];
+  form: string;
   action: (formData: FormData) => Promise<Response>;
   buttonTitle: string;
 }
