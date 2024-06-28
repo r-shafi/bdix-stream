@@ -1,12 +1,6 @@
 import Link from 'next/link';
 import Button from '../Buttons/Button';
-
-const LINKS = [
-  { title: 'Home', href: '/' },
-  { title: 'Sports', href: '/sports' },
-  { title: 'Entertainment', href: '/entertainment' },
-  { title: 'Announcement', href: '/announcement' },
-];
+import NavLinks from '../Display/NavLinks';
 
 const Header = () => {
   return (
@@ -16,15 +10,7 @@ const Header = () => {
           M3U8
         </Link>
         <div className="flex items-center gap-4">
-          {LINKS.map((link) => (
-            <Link
-              href={link.href}
-              key={link.href}
-              className="text-sm uppercase font-medium text-gray-600 hover:text-gray-800 hover:underline hidden md:block"
-            >
-              {link.title}
-            </Link>
-          ))}
+          <NavLinks />
           <Link href="/share">
             <Button title="Add New Link"></Button>
           </Link>
