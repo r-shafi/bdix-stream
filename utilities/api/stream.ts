@@ -9,7 +9,14 @@ import { response } from '../functions/functions';
 export async function getStreams(type?: string) {
   try {
     const streams = await StreamModel.find(
-      type ? { type } : {},
+      type
+        ? {
+            type:
+              type === 'sports'
+                ? { $in: ['cricket', 'football'] }
+                : { $in: ['entertainment', 'news'] },
+          }
+        : {},
       '-__v -updatedAt'
     )
       .populate('user', 'username')
