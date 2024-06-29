@@ -98,28 +98,43 @@ export async function voteStream(id: string, vote: 'upvote' | 'downvote') {
       'type'
     );
 
-    if (existingVote && existingVote.type === vote) {
-      existingVote.type = 'removed';
-      await existingVote.save();
+    if (existingVote) {
+      if (existingVote.type === vote) {
+        await VoteModel.findByIdAndDelete(existingVote.id);
 
-      stream[`${vote}s`] -= 1;
-      await stream.save();
+        stream[`${vote}s`] -= 1;
+        await stream.save();
 
-      revalidatePath('/');
-      return response({
-        error: false,
-        body: undefined,
-        message: 'Vote removed',
-      });
+        revalidatePath('/');
+        return response({
+          error: false,
+          body: undefined,
+          message: 'Vote removed',
+        });
+      } else {
+        stream[`${existingVote.type}s`] -= 1;
+        stream[`${vote}s`] += 1;
+        await stream.save();
+
+        existingVote.type = vote;
+        await existingVote.save();
+
+        revalidatePath('/');
+        return response({
+          error: false,
+          body: undefined,
+          message: 'Vote changed',
+        });
+      }
     }
 
-    const newVote = await VoteModel.create({
+    await VoteModel.create({
       user: session.id,
       stream: id,
       type: vote,
     });
 
-    vote === 'upvote' ? (stream.upvotes += 1) : (stream.downvotes += 1);
+    stream[`${vote}s`] += 1;
     await stream.save();
 
     revalidatePath('/');
