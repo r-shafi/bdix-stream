@@ -6,19 +6,25 @@ import { revalidatePath } from 'next/cache';
 import { getSession } from '../functions/auth';
 import { response } from '../functions/functions';
 
-export async function getStreams(type?: string) {
+export async function getStreams(type?: string, hours?: number) {
   try {
-    const streams = await StreamModel.find(
-      type
-        ? {
-            type:
-              type === 'sports'
-                ? { $in: ['cricket', 'football'] }
-                : { $in: ['entertainment', 'news'] },
-          }
-        : {},
-      '-__v -updatedAt'
-    )
+    let query: any = {};
+
+    if (type) {
+      if (type === 'sports') {
+        query.type = { $in: ['cricket', 'football'] };
+      } else {
+        query.type = { $in: ['entertainment', 'news'] };
+      }
+    }
+
+    if (hours) {
+      query.createdAt = {
+        $gte: new Date(Date.now() - hours * 60 * 60 * 1000),
+      };
+    }
+
+    const streams = await StreamModel.find(query, '-__v -updatedAt')
       .populate('user', 'username role')
       .sort({ createdAt: -1 });
 
