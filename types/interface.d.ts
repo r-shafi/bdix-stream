@@ -3,6 +3,7 @@ export interface StreamLink {
   user: {
     _id: string;
     username: string;
+    role: 'user' | 'admin' | 'moderator';
   };
   title: string;
   description?: string;

@@ -19,7 +19,7 @@ export async function getStreams(type?: string) {
         : {},
       '-__v -updatedAt'
     )
-      .populate('user', 'username')
+      .populate('user', 'username role')
       .sort({ createdAt: -1 });
 
     return response({ body: streams });
