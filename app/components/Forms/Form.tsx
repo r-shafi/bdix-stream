@@ -34,8 +34,7 @@ const Form = ({ action, form, buttonTitle }: FormProps) => {
       const url = formData.get('url') as string;
 
       if (!title || !type || !url) return;
-
-      if (title.length < 5) return;
+      if (title.length < 3) return;
       if (description && description.length < 5) return;
     }
 
