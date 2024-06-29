@@ -18,7 +18,12 @@ const Toast = ({ message, type, setter }: ToastProps) => {
   }, []);
 
   return (
-    <div className="fixed top-8 right-8 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow">
+    <div
+      className={
+        'fixed top-8 right-8 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow border' +
+        (type === 'success' ? ' border-green-500' : ' border-red-500')
+      }
+    >
       <div
         className={
           'inline-flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-lg' +
