@@ -7,7 +7,7 @@ const Header = () => {
     <nav className="bg-white border-gray-200 backdrop-blur-md border-b">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link className="text-2xl font-semibold whitespace-nowrap" href="/">
-          M3U8
+          BDIX Live Stream
         </Link>
         <div className="flex items-center gap-4">
           <NavLinks />

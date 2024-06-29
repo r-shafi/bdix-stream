@@ -5,7 +5,7 @@ import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
-  title: 'Share New Stream | m3u8',
+  title: 'Share New Stream | BDIX Live Stream',
   description: 'Share New Stream',
 };
 

@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import Table from './components/Display/Table';
 
 export const metadata: Metadata = {
-  title: 'Live Streams | m3u8',
+  title: 'Live Streams | BDIX Live Stream',
   description:
     'Watch live cricket, football, and entertainment TV channels streamed by members of our website. Enjoy high-quality streaming and diverse content on our platform. Join today to experience the thrill of live sports and entertainment at your fingertips.',
 };
