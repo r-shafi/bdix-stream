@@ -1,4 +1,5 @@
 import { databaseConnect } from '@/utilities/database';
+import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Footer from './components/Layout/Footer';
@@ -59,6 +60,7 @@ export default function RootLayout({
         <Header />
         <main className="max-w-screen-xl mx-auto px-4 py-8">{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
