@@ -9,11 +9,36 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const response: any = await getStreams();
+  const allStreamsResponse: any = await getStreams();
+  const latestStreamResponse: any = await getStreams(undefined, 24);
 
-  if (response.error) {
-    return <div>{response.message}</div>;
-  }
+  return (
+    <>
+      <section className="flex flex-col gap-2 mb-12">
+        <h2 className="font-medium text-2xl text-gray-800">Latest Streams</h2>
+        <p className="text-sm text-gray-600 lowercase -mt-2 mb-4">
+          Streams created in last 24 hours
+        </p>
 
-  return <div>{<Table data={response.body}></Table>}</div>;
+        {latestStreamResponse.error ? (
+          <div>{latestStreamResponse.message}</div>
+        ) : (
+          <Table data={latestStreamResponse.body}></Table>
+        )}
+      </section>
+
+      <section className="flex flex-col gap-2 mb-12">
+        <h2 className="font-medium text-2xl text-gray-800">All Streams</h2>
+        <p className="text-sm text-gray-600 lowercase -mt-2 mb-4">
+          All streams available on the platform
+        </p>
+
+        {allStreamsResponse.error ? (
+          <div>{allStreamsResponse.message}</div>
+        ) : (
+          <Table data={allStreamsResponse.body}></Table>
+        )}
+      </section>
+    </>
+  );
 }
