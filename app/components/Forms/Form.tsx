@@ -17,8 +17,29 @@ const Form = ({ action, form, buttonTitle }: FormProps) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     if (pending) return;
     e.preventDefault();
-    setPending(true);
+
     const formData = new FormData(e.currentTarget);
+
+    if (form === 'loginForm' || form === 'registerForm') {
+      const username = formData.get('username') as string;
+      const password = formData.get('password') as string;
+      const email = formData.get('email') as string;
+      if (!username || !password) return;
+      if (username.length < 5 || password.length < 6) return;
+      if (email && email.length < 8) return;
+    } else if (form === 'createStreamForm') {
+      const title = formData.get('title') as string;
+      const description = formData.get('description') as string;
+      const type = formData.get('type') as string;
+      const url = formData.get('url') as string;
+
+      if (!title || !type || !url) return;
+
+      if (title.length < 5) return;
+      if (description && description.length < 5) return;
+    }
+
+    setPending(true);
     const response = await action(formData);
     setContent(response);
     setShow(true);
