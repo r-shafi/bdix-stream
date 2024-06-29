@@ -1,6 +1,7 @@
 import { databaseConnect } from '@/utilities/database';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import Footer from './components/Layout/Footer';
 import Header from './components/Layout/Header';
 import './globals.css';
 
@@ -57,6 +58,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Header />
         <main className="max-w-screen-xl mx-auto px-4 py-8">{children}</main>
+        <Footer />
       </body>
     </html>
   );
