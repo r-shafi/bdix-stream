@@ -2,6 +2,8 @@ import { getStreams } from '@/utilities/api/stream';
 import { Metadata } from 'next';
 import Table from './components/Display/Table';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Live Streams | BDIX Live Stream',
   description:
