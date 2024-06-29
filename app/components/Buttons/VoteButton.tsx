@@ -18,7 +18,7 @@ const VoteButton = ({ id, type, count }: VoteButtonProps) => {
   const handleSubmit = async () => {
     if (pending) return;
     setPending(true);
-    const response = await voteStream(JSON.parse(id), type);
+    const response = await voteStream(id, type);
     setContent(response);
     setShow(true);
     setPending(false);
