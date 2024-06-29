@@ -1,3 +1,11 @@
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Announcements | m3u8',
+  description:
+    'Stay updated with announcements from our administrators on live cricket, football, and entertainment channels. Get the latest news, updates, and important information directly from our team. Join our community to stay informed and engaged with our platform.',
+};
+
 const Page = () => {
   return (
     <div className="flex flex-col gap-4">

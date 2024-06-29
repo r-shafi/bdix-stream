@@ -1,9 +1,15 @@
 import Tabs from '@/app/components/Display/Tabs';
 import Form from '@/app/components/Forms/Form';
-import { Field } from '@/types/interface';
 import { authenticate } from '@/utilities/api/user';
 import { getSession } from '@/utilities/functions/auth';
+import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
+
+export const metadata: Metadata = {
+  title: 'Authentication | m3u8',
+  description:
+    'Sign up or log in to our platform to enjoy streaming live cricket, football, and entertainment TV channels shared by members. Register for free to access exclusive content and features. Join now to experience seamless registration and secure login processes.',
+};
 
 const Page = async () => {
   const authenticateServer = async (formData: FormData) => {
@@ -16,7 +22,13 @@ const Page = async () => {
     return result;
   };
 
-  const Login = <Form form='loginForm' action={authenticateServer} buttonTitle="Login"></Form>;
+  const Login = (
+    <Form
+      form="loginForm"
+      action={authenticateServer}
+      buttonTitle="Login"
+    ></Form>
+  );
 
   const Register = (
     <Form

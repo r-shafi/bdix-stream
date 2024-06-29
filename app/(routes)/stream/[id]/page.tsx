@@ -3,7 +3,25 @@ import VideoPlayer from '@/app/components/Display/VideoPlayer';
 import { StreamModel } from '@/schemas/stream.schema';
 import Head from 'next/head';
 
-const Page = async ({ params }: { params: { id: string } }) => {
+type Props = { params: { id: string } };
+
+export async function generateMetadata({ params }: Props) {
+  const stream = await StreamModel.findById(params.id);
+
+  if (!stream) {
+    return {
+      title: 'Stream not found!',
+      description: 'Stream not found!',
+    };
+  }
+
+  return {
+    title: `${stream.title} Live Stream`,
+    description: `${stream.description || stream.title} Live Stream`,
+  };
+}
+
+const Page = async ({ params }: Props) => {
   const stream = await StreamModel.findById(params.id);
 
   if (!stream) {
