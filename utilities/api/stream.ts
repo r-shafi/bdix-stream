@@ -26,7 +26,12 @@ export async function getStreams(type?: string, hours?: number) {
 
     const streams = await StreamModel.find(query, '-__v -updatedAt')
       .populate('user', 'username role')
-      .sort({ createdAt: -1 });
+      .sort({
+        ...(hours && {
+          upvotes: -1,
+        }),
+        createdAt: -1,
+      });
 
     return response({ body: streams });
   } catch (error) {
