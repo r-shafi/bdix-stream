@@ -48,7 +48,7 @@ const forms = {
       name: 'email',
       autocomplete: 'email',
       validation: {
-        minLen: 5,
+        minLen: 8,
         maxLen: 64,
         pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
       },
