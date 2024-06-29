@@ -73,7 +73,7 @@ const Table: FC<TableProps> = ({ data }) => {
             };
 
             return (
-              <tr className="bg-white border-b" key={index}>
+              <tr className="border-b hover:bg-gray-50" key={index}>
                 <td className="px-6 py-4">{row.title}</td>
                 <td className="px-6 py-4">{row.description}</td>
                 <td className="px-6 py-4 flex items-center gap-4">
