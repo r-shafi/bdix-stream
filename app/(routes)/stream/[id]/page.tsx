@@ -59,6 +59,26 @@ const Page = async ({ params }: Props) => {
         </div>
       </div>
 
+      <p className="w-full px-4 py-2 border-l-4 border-l-orange-400 bg-orange-100 text-sm text-gray-600 rounded-lg">
+        This link might be blocked due to browser restrictions{' '}
+        <a
+          className="text-blue-600 hover:underline"
+          target="_blank"
+          href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS"
+        >
+          [CORS]
+        </a>
+        . To enjoy a seamless experience, please install{' '}
+        <a
+          className="text-blue-600 hover:underline"
+          target="_blank"
+          href="https://chromewebstore.google.com/detail/moesif-origincors-changer/digfbfaphojjndkpccljibejjbppifbc"
+        >
+          Moesif OriginCors Changer
+        </a>{' '}
+        extension to avoid any issues. Thank you!
+      </p>
+
       {stream.description && <p className="text-sm">{stream.description}</p>}
 
       <VideoPlayer url={stream.url} />
