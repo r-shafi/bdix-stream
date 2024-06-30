@@ -1,20 +1,40 @@
 'use client';
 
-import { useRef } from 'react';
-import ReactHlsPlayer from 'react-hls-player';
+import HLS from 'hls.js';
+import { useEffect, useRef } from 'react';
 
 const VideoPlayer = ({ url }: { url: string }) => {
-  const playerRef = useRef(null);
+  const playerRef = useRef<any>(null);
+
+  useEffect(() => {
+    if (HLS.isSupported()) {
+      const hls = new HLS();
+      hls.loadSource(url);
+      hls.attachMedia(playerRef.current!);
+      hls.on(HLS.Events.MANIFEST_PARSED, () => {
+        playerRef.current?.play();
+      });
+
+      return () => {
+        hls.destroy();
+      };
+    } else if (
+      playerRef.current?.canPlayType('application/vnd.apple.mpegurl')
+    ) {
+      playerRef.current.src = url;
+      playerRef.current.addEventListener('loadedmetadata', () => {
+        playerRef.current?.play();
+      });
+    }
+  }, [url]);
 
   return (
-    <ReactHlsPlayer
-      className="rounded-lg shadow-lg"
-      playerRef={playerRef}
-      src={url}
-      autoPlay={true}
-      controls={true}
-      width="100%"
-      height="auto"
+    <video
+      ref={playerRef}
+      controls
+      autoPlay
+      playsInline
+      className="rounded-lg shadow-lg w-full h-full"
     />
   );
 };
