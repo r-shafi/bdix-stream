@@ -58,7 +58,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Header />
-        <main className="max-w-screen-xl mx-auto px-4 py-8">{children}</main>
+        <main className="max-w-screen-xl mx-auto container-padding py-8 min-h-screen">
+          {children}
+        </main>
         <Footer />
         <Analytics />
       </body>
