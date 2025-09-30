@@ -1,6 +1,7 @@
 'use client';
 
 import { voteStream } from '@/utilities/api/stream';
+import { ThumbsUp, ThumbsDown, Loader } from 'lucide-react';
 import { useState } from 'react';
 import Toast from '../Layout/Toast';
 
@@ -8,65 +9,104 @@ interface VoteButtonProps {
   id: string;
   type: 'upvote' | 'downvote';
   count: number;
+  size?: 'sm' | 'md';
+  showLabel?: boolean;
 }
 
-const VoteButton = ({ id, type, count }: VoteButtonProps) => {
+const VoteButton: React.FC<VoteButtonProps> = ({ 
+  id, 
+  type, 
+  count, 
+  size = 'md',
+  showLabel = false 
+}) => {
   const [pending, setPending] = useState(false);
-  const [show, setShow] = useState(false);
-  const [content, setContent] = useState<any | null>(null);
+  const [showToast, setShowToast] = useState(false);
+  const [toastContent, setToastContent] = useState<any | null>(null);
+  const [optimisticCount, setOptimisticCount] = useState(count);
+  const [hasVoted, setHasVoted] = useState(false);
 
   const handleSubmit = async () => {
     if (pending) return;
+    
     setPending(true);
-    const response = await voteStream(id, type);
-    setContent(response);
-    setShow(true);
-    setPending(false);
+    
+    // Optimistic update
+    if (!hasVoted) {
+      setOptimisticCount(prev => prev + 1);
+      setHasVoted(true);
+    }
+
+    try {
+      const response = await voteStream(id, type);
+      setToastContent(response);
+      setShowToast(true);
+      
+      if (response.error) {
+        // Revert optimistic update on error
+        setOptimisticCount(count);
+        setHasVoted(false);
+      }
+    } catch (error) {
+      // Revert optimistic update on error
+      setOptimisticCount(count);
+      setHasVoted(false);
+      setToastContent({ error: true, message: 'Failed to vote. Please try again.' });
+      setShowToast(true);
+    } finally {
+      setPending(false);
+    }
   };
+
+  const isUpvote = type === 'upvote';
+  const Icon = isUpvote ? ThumbsUp : ThumbsDown;
+  
+  const baseClasses = 'flex items-center justify-center gap-1.5 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-1 disabled:opacity-50 disabled:cursor-not-allowed';
+  
+  const sizeClasses = size === 'sm' 
+    ? 'px-2 py-1 text-xs min-w-[44px]' 
+    : 'px-3 py-2 text-sm min-w-[56px]';
+
+  const colorClasses = isUpvote
+    ? hasVoted 
+      ? 'bg-green-100 text-green-700 hover:bg-green-200 focus:ring-green-500 border border-green-300'
+      : 'bg-gray-50 text-gray-600 hover:bg-green-50 hover:text-green-600 focus:ring-green-500 border border-gray-200'
+    : hasVoted
+      ? 'bg-red-100 text-red-700 hover:bg-red-200 focus:ring-red-500 border border-red-300'
+      : 'bg-gray-50 text-gray-600 hover:bg-red-50 hover:text-red-600 focus:ring-red-500 border border-gray-200';
 
   return (
     <>
       <button
         onClick={handleSubmit}
-        className="flex items-center gap-2 bg-transparent hover:bg-gray-100 transition-all px-2 py-1 rounded-md"
+        disabled={pending}
+        className={`${baseClasses} ${sizeClasses} ${colorClasses}`}
+        title={`${isUpvote ? 'Like' : 'Dislike'} this stream`}
+        aria-label={`${isUpvote ? 'Upvote' : 'Downvote'} (${optimisticCount} ${isUpvote ? 'likes' : 'dislikes'})`}
       >
-        {type === 'upvote' ? (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-6 h-6"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="#2c3e50"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M7 11v8a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1v-7a1 1 0 0 1 1 -1h3a4 4 0 0 0 4 -4v-1a2 2 0 0 1 4 0v5h3a2 2 0 0 1 2 2l-1 5a2 3 0 0 1 -2 2h-7a3 3 0 0 1 -3 -3" />
-          </svg>
+        {pending ? (
+          <Loader className={`${size === 'sm' ? 'h-3 w-3' : 'h-4 w-4'} animate-spin`} />
         ) : (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-6 h-6"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="#2c3e50"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M7 13v-8a1 1 0 0 0 -1 -1h-2a1 1 0 0 0 -1 1v7a1 1 0 0 0 1 1h3a4 4 0 0 1 4 4v1a2 2 0 0 0 4 0v-5h3a2 2 0 0 0 2 -2l-1 -5a2 3 0 0 0 -2 -2h-7a3 3 0 0 0 -3 3" />
-          </svg>
+          <Icon 
+            className={`${size === 'sm' ? 'h-3 w-3' : 'h-4 w-4'} ${hasVoted ? 'fill-current' : ''} transition-all`}
+            strokeWidth={hasVoted ? 0 : 2}
+          />
         )}
-        <span>{count}</span>
+        <span className={`font-medium tabular-nums ${pending ? 'opacity-50' : ''}`}>
+          {optimisticCount}
+        </span>
+        {showLabel && (
+          <span className="hidden sm:inline">
+            {isUpvote ? 'Like' : 'Dislike'}
+          </span>
+        )}
       </button>
 
-      {show && content && (
+      {showToast && toastContent && (
         <Toast
-          type={content.error ? 'error' : 'success'}
-          message={content.message}
-          setter={setShow}
+          type={toastContent.error ? 'error' : 'success'}
+          message={toastContent.message}
+          setter={setShowToast}
         />
       )}
     </>
