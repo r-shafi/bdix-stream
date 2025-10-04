@@ -2,6 +2,7 @@ import { databaseConnect } from '@/utilities/database';
 import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import Clarity from './components/Layout/Clarity';
 import Footer from './components/Layout/Footer';
 import Header from './components/Layout/Header';
 import './globals.css';
@@ -63,6 +64,7 @@ export default function RootLayout({
         </main>
         <Footer />
         <Analytics />
+        <Clarity />
       </body>
     </html>
   );
