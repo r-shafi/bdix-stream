@@ -2,7 +2,19 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+First, install dependencies:
+
+```bash
+npm install
+```
+
+Create a `.env` file based on `.env.example` and add your environment variables:
+
+```bash
+cp .env.example .env
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
@@ -19,6 +31,18 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+
+## Analytics
+
+This project integrates with:
+- **Vercel Analytics** - For performance monitoring
+- **Microsoft Clarity** - For user behavior analytics and heatmaps
+
+To enable Microsoft Clarity:
+1. Sign up for a free account at [https://clarity.microsoft.com](https://clarity.microsoft.com)
+2. Create a new project
+3. Copy your Clarity Project ID
+4. Add it to your `.env` file as `NEXT_PUBLIC_CLARITY_ID`
 
 ## Learn More
 
